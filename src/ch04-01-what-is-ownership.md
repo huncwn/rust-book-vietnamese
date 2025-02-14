@@ -1,44 +1,39 @@
-## What Is Ownership?
+## Ownership Là Gì?
 
-_Ownership_ is a set of rules that govern how a Rust program manages memory.
-All programs have to manage the way they use a computer’s memory while running.
-Some languages have garbage collection that regularly looks for no-longer-used
-memory as the program runs; in other languages, the programmer must explicitly
-allocate and free the memory. Rust uses a third approach: memory is managed
-through a system of ownership with a set of rules that the compiler checks. If
-any of the rules are violated, the program won’t compile. None of the features
-of ownership will slow down your program while it’s running.
+_Ownership_ là một tập hợp các quy tắc chi phối cách một chương trình Rust quản lý bộ nhớ.
+Tất cả các chương trình phải quản lý cách chúng sử dụng bộ nhớ của máy tính trong khi chạy.
+Một số ngôn ngữ có bộ thu gom rác thường xuyên tìm kiếm bộ nhớ không còn được sử dụng khi chương trình chạy;
+trong các ngôn ngữ khác, lập trình viên phải phân bổ và giải phóng bộ nhớ một cách rõ ràng.
+Rust sử dụng cách tiếp cận thứ ba: bộ nhớ được quản lý thông qua hệ thống _ownership_ với một tập hợp các quy tắc mà trình biên dịch kiểm tra.
+Nếu bất kỳ quy tắc nào bị vi phạm, chương trình sẽ không biên dịch.
+Không có tính năng nào của _ownership_ sẽ làm chậm chương trình của bạn trong khi nó đang chạy.
 
-Because ownership is a new concept for many programmers, it does take some time
-to get used to. The good news is that the more experienced you become with Rust
-and the rules of the ownership system, the easier you’ll find it to naturally
-develop code that is safe and efficient. Keep at it!
+Vì _ownership_ là một khái niệm mới đối với nhiều lập trình viên, nên cần một thời gian để làm quen.
+Tin tốt là bạn càng có nhiều kinh nghiệm với Rust và các quy tắc của hệ thống _ownership_, bạn sẽ càng thấy dễ dàng hơn khi phát triển mã một cách tự nhiên, an toàn và hiệu quả.
+Keep at it!
 
-When you understand ownership, you’ll have a solid foundation for understanding
-the features that make Rust unique. In this chapter, you’ll learn ownership by
-working through some examples that focus on a very common data structure:
-strings.
+Khi bạn hiểu về _ownership_, bạn sẽ có nền tảng vững chắc để hiểu các tính năng làm cho Rust trở nên độc đáo.
+Trong chương này, bạn sẽ học về _ownership_ bằng cách làm việc thông qua một số ví dụ tập trung vào một cấu trúc dữ liệu rất phổ biến: strings.
 
-> ### The Stack and the Heap
+> ### Stack và Heap
 >
-> Many programming languages don’t require you to think about the stack and the
-> heap very often. But in a systems programming language like Rust, whether a
-> value is on the stack or the heap affects how the language behaves and why
-> you have to make certain decisions. Parts of ownership will be described in
-> relation to the stack and the heap later in this chapter, so here is a brief
-> explanation in preparation.
+> Nhiều ngôn ngữ lập trình không yêu cầu bạn phải suy nghĩ về _stack_ và _heap_
+> thường xuyên. Nhưng trong một ngôn ngữ lập trình hệ thống như Rust, việc giá
+> trị nằm trên _stack_ hay _heap_ sẽ ảnh hưởng đến cách ngôn ngữ hoạt động và lý do
+> tại sao bạn phải đưa ra một số quyết định nhất định. Các phần của _ownership_
+> sẽ được mô tả liên quan đến _stack_ và _heap_ sau trong chương này, vì vậy đây là
+> một giải thích ngắn gọn để chuẩn bị.
 >
-> Both the stack and the heap are parts of memory available to your code to use
-> at runtime, but they are structured in different ways. The stack stores
-> values in the order it gets them and removes the values in the opposite
-> order. This is referred to as _last in, first out_. Think of a stack of
-> plates: when you add more plates, you put them on top of the pile, and when
-> you need a plate, you take one off the top. Adding or removing plates from
-> the middle or bottom wouldn’t work as well! Adding data is called _pushing
-> onto the stack_, and removing data is called _popping off the stack_. All
-> data stored on the stack must have a known, fixed size. Data with an unknown
-> size at compile time or a size that might change must be stored on the heap
-> instead.
+> Cả _stack_ và _heap_ đều là những phần bộ nhớ có sẵn cho mã của bạn sử dụng khi chạy,
+> nhưng chúng được cấu trúc theo những cách khác nhau. _Stack_ lưu trữ các giá trị
+> theo thứ tự nó nhận được và xóa các giá trị theo thứ tự ngược lại. Điều này được
+> gọi là _last in, first out_. Hãy nghĩ đến một chồng đĩa: khi bạn thêm nhiều đĩa
+> hơn, bạn đặt chúng lên trên cùng của chồng và khi bạn cần một đĩa, bạn lấy một
+> đĩa ở trên cùng. Việc thêm hoặc xóa các đĩa ở giữa hoặc dưới cùng sẽ không hiệu
+> quả! Việc thêm dữ liệu được gọi là _pushing onto the stack_ và việc xóa dữ liệu
+> được gọi là _popping off the stack_. Tất cả dữ liệu được lưu trữ trên _stack_ phải
+> có kích thước cố định đã biết. Dữ liệu có kích thước không xác định tại thời điểm
+> biên dịch hoặc kích thước có thể thay đổi phải được lưu trữ trên _heap_ thay thế.
 >
 > The heap is less organized: when you put data on the heap, you request a
 > certain amount of space. The memory allocator finds an empty spot in the heap

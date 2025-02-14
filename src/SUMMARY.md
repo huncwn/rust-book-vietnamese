@@ -1,13 +1,13 @@
-# The Rust Programming Language
+# Ngôn ngữ lập trình Rust
 
-[The Rust Programming Language](title-page.md)
+[Ngôn ngữ lập trình Rust](title-page.md)
 [Foreword](foreword.md)
 [Introduction](ch00-00-introduction.md)
 
 ## Getting started
 
 - [Getting Started](ch01-00-getting-started.md)
-  - [Installation](ch01-01-installation.md)
+  - [Cài Đặt](ch01-01-installation.md)
   - [Hello, World!](ch01-02-hello-world.md)
   - [Hello, Cargo!](ch01-03-hello-cargo.md)
 
@@ -20,9 +20,9 @@
   - [Comments](ch03-04-comments.md)
   - [Control Flow](ch03-05-control-flow.md)
 
-- [Understanding Ownership](ch04-00-understanding-ownership.md)
-  - [What is Ownership?](ch04-01-what-is-ownership.md)
-  - [References and Borrowing](ch04-02-references-and-borrowing.md)
+- [Hiểu về Ownership](ch04-00-understanding-ownership.md)
+  - [Ownership là gì?](ch04-01-what-is-ownership.md)
+  - [References và Borrowing](ch04-02-references-and-borrowing.md)
   - [The Slice Type](ch04-03-slices.md)
 
 - [Using Structs to Structure Related Data](ch05-00-structs.md)
@@ -30,7 +30,7 @@
   - [An Example Program Using Structs](ch05-02-example-structs.md)
   - [Method Syntax](ch05-03-method-syntax.md)
 
-- [Enums and Pattern Matching](ch06-00-enums.md)
+- [Enums và Pattern Matching](ch06-00-enums.md)
   - [Defining an Enum](ch06-01-defining-an-enum.md)
   - [The `match` Control Flow Construct](ch06-02-match.md)
   - [Concise Control Flow with `if let` and `let else`](ch06-03-if-let.md)
